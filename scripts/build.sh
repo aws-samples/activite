@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Build script is to be run from the root directory 
+# Build script is to be run from the root directory !
 
 set -ev
 npm ci
