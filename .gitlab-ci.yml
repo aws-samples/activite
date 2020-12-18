@@ -1,0 +1,55 @@
+image: node:latest
+
+before_script:
+  - apt-get update -qq && apt-get install
+  - npm install -y -g typescript@latest eslint@latest @typescript-eslint/eslint-plugin nyc
+  - npm install -y -g @istanbuljs/nyc-config-typescript jest-simple-summary
+
+cache:
+  key: "$CI_BUILD_REF_NAME"
+  paths:
+    - node_modules/
+    - .npm/
+
+stages:
+  - deps
+  - build
+  - test
+
+install_dependencies:
+  stage: deps
+  script:
+    - npm ci install
+    - npm prune
+  artifacts:
+    paths:
+      - node_modules/
+
+build:
+  stage: build
+  needs: ["install_dependencies"]
+  artifacts:
+    paths:
+      - build/
+  script:
+    - npm run build
+    - npm run lint
+    - npm run generate:attribution
+    - npm run license:check
+    - echo 'Copy license files'
+    - cp ./LICENSE ./build/
+    - cp ./NOTICE ./build/
+    - cp ./LICENSE-THIRD-PARTY ./build/
+
+test:
+  stage: test
+  coverage: /Lines\s*:\s*(\d+.?\d+)%/
+  needs: ["install_dependencies","build"]
+  script:
+    - npm run test:all
+  artifacts:
+    when: always
+    paths:
+      - coverage
+    expire_in: 30 days
+

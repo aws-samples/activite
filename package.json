@@ -1,0 +1,86 @@
+{
+  "name": "activite",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./build/index.js",
+  "scripts": {
+    "build": "scripts/build.sh",
+    "ts": "ts-node src/",
+    "lint:fix": "eslint --fix --quiet --ext .ts --ext .tsx  --ext .js --ext .jsx .",
+    "lint": "eslint --quiet --ext .ts --ext .tsx --ext .js --ext .jsx .",
+    "prettier": "prettier --write {src,infra,styleguide}{/**/,/}**.{js,jsx,ts,tsx}",
+    "generate:attribution": "generate-attribution && mv oss-attribution/attribution.txt LICENSE-THIRD-PARTY",
+    "license:check": "license-checker --summary --production --onlyAllow 'MIT;Apache-2.0;Unlicense;BSD;BSD*;BSD-2-Clause;BSD-3-Clause;ISC;Zlib;WTFPL'",
+    "test:all": "npm run lint && npm run test:ci",
+    "test:ci": "./scripts/prepareTests.sh && npm run test -- --coverage && npm run license:check",
+    "test": "jest",
+    "link": "cd build/ && npm link activite && cd -"
+  },
+  "keywords": [],
+  "author": "Amazon Web Services",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@semantic-release/changelog": "^5.0.1",
+    "@semantic-release/exec": "^5.0.0",
+    "@semantic-release/git": "^9.0.0",
+    "@semantic-release/github": "^7.1.1",
+    "@semantic-release/gitlab": "^6.0.8",
+    "@types/jest": "^25.1.4",
+    "@types/json-server": "^0.14.3",
+    "@types/lodash": "^4.14.165",
+    "@types/react": "^17.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.9.0",
+    "@typescript-eslint/parser": "^4.9.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-config-react-app": "^5.2.1",
+    "eslint-plugin-flowtype": "^4.7.0",
+    "eslint-plugin-header": "^3.0.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-prettier": "^3.1.4",
+    "git-conventional-commits": "^1.0.5",
+    "husky": "^4.3.6",
+    "jest": "25.2.3",
+    "jest-simple-summary": "^1.0.2",
+    "json-server": "^0.16.3",
+    "license-checker": "^25.0.1",
+    "lint-staged": "^10.0.9",
+    "oss-attribution-generator": "^1.7.1",
+    "prettier": "^1.19.1",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^25.2.1",
+    "ts-node": "^9.0.0",
+    "tsconfig-paths": "^3.9.0",
+    "typescript": "^4.1.2"
+  },
+  "files": [
+    "build/es",
+    "build/lib"
+  ],
+  "types": "./build/index.d.ts",
+  "module": "./build/index.js",
+  "dependencies": {
+    "@activejs/core": "^0.2.3",
+    "@types/node": "^14.14.10",
+    "axios": "^0.21.0",
+    "build-url": "^6.0.1",
+    "frep": "^0.2.3",
+    "lodash": "^4.17.20",
+    "react": "^16.13.1",
+    "rxjs": "^6.6.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm run test:ci",
+      "commit-msg": "./node_modules/git-conventional-commits/cli.js commit-msg-hook $HUSKY_GIT_PARAMS"
+    }
+  },
+  "lint-staged": {
+    "(src|docs)(/**/|/*)**.(js|jsx|ts|tsx|md)": [
+      "npm run lint:fix"
+    ]
+  }
+}

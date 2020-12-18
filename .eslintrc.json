@@ -1,0 +1,27 @@
+{
+    "parser": "@typescript-eslint/parser",
+    "extends": [
+        // "prettier/@typescript-eslint",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended"
+        // "plugin:@typescript-eslint/eslint-plugin"
+        // "plugin:prettier/recommended"
+    ],
+    "plugins": [
+        "header",
+        "@typescript-eslint"
+    ],
+    "rules": {
+        "header/header": [
+            2,
+            "header.js"
+        ]
+    },
+    "parserOptions": {
+        "ecmaVersion": 2020,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "modules": true
+        }
+    }
+}

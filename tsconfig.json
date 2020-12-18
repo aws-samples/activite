@@ -1,0 +1,52 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "baseUrl": "src",
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "react",
+    "lib": [
+      "es6",
+      "dom",
+      "es2015.promise"
+    ],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": false,
+    "outDir": "build",
+    "rootDir": "src",
+    "strictNullChecks": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es5",
+    "skipLibCheck": true,
+    "strict": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "sourceMap": true
+  },
+  "exclude": [
+    "build",
+    "scripts",
+    "acceptance-tests",
+    "webpack",
+    "jest",
+    "src/setupTests.ts",
+    "node_modules",
+    "obj",
+    "**/*.spec.ts"
+  ],
+  "include": [
+    "src",
+    "src/**/*.ts",
+    "@types/**/*.d.ts"
+  ],
+  "paths": {
+    "@/*": [
+      "src/**/*"
+    ]
+  }
+}
