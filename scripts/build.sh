@@ -3,6 +3,7 @@
 # Build script is to be run from the root directory 
 
 set -ev
+npm ci
 npm run test:all
 npm run generate:attribution
 npm run lint:fix

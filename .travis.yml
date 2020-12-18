@@ -1,0 +1,7 @@
+language: node_js
+os: linux
+dist: focal
+install:   
+  - npm install -g typescript
+script: 
+  - ./scripts/build.sh
