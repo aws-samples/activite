@@ -5,6 +5,7 @@ install:
   - npm install -y -g typescript
   - npm install -y -g typescript@latest eslint@latest @typescript-eslint/eslint-plugin nyc
   - npm install -y -g @istanbuljs/nyc-config-typescript jest-simple-summary
+  - npm install
 
 script: 
   - ./scripts/build.sh
