@@ -27,13 +27,6 @@
         }],
         ["@semantic-release/github", {
             "assets": ["CHANGELOG.md"],
-        }],
-        ["@semantic-release/gitlab", {
-      "gitlabUrl": "https://gitlab.aws.dev/aws-apj-anz/AsyncService",
-      "assets": [
-        {"path": "build/index.js", "label": "JS Distribution"},
-        {"path": "build/lib/**/*.js", "label": "JS Distribution"}
-      ]
-    }],
-    ]
-}
+        }]
+    }]
+]}

@@ -82,5 +82,8 @@
     "(src|docs)(/**/|/*)**.(js|jsx|ts|tsx|md)": [
       "npm run lint:fix"
     ]
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

@@ -4,10 +4,19 @@ node_js:
 os: linux
 dist: focal
 install:   
+  - pushd /tmp && git clone --depth 1 https://github.com/awslabs/git-secrets.git && cd ./git-secrets && PREFIX=/tmp/git-secrets make install && popd
   - npm install -y -g typescript
   - npm install -y -g typescript@latest eslint@latest @typescript-eslint/eslint-plugin nyc
   - npm install -y -g @istanbuljs/nyc-config-typescript jest-simple-summary
   - npm install
 
 script: 
+  - export PATH=/tmp/git-secrets/bin:$PATH
   - ./scripts/build.sh
+
+deploy:
+  provider: npm
+  email: marc@teichtahl.com
+  api_key: 
+  on:
+    tag: true
