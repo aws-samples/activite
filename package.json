@@ -64,12 +64,13 @@
   "dependencies": {
     "@activejs/core": "^0.2.3",
     "@types/node": "^14.14.10",
-    "axios": "^0.21.1",
+    "axios": ">=0.21.1",
     "build-url": "^6.0.1",
     "frep": "^0.2.3",
     "lodash": "^4.17.20",
     "react": "^16.13.1",
-    "rxjs": "^6.6.3"
+    "rxjs": "^6.6.3",
+    "node-notifier": ">=8.0.1"
   },
   "husky": {
     "hooks": {
