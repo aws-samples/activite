@@ -138,15 +138,21 @@ it('can dispatch a POST', (done) => {
             data: { a: 'b' }
         }
     )
+
+
 })
 
 it('can dispatch a PUT', (done) => {
+
     const { query, pending, data } = testService.getEntity("testEntityThree");
+
+    console.log(data.cachedValues())
 
     const subscription = data.future$.subscribe(val => {
         expect(pending.value()).toBe(false)
         expect(val).toEqual({ "a": "updated", "id": 2 })
         subscription.unsubscribe()
+        console.log(data.cachedValues())
         done()
     })
 

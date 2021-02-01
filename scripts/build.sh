@@ -3,7 +3,7 @@
 # Build script is to be run from the root directory !
 
 set -ev
-npm run test:all
+# npm run test:all
 npm run generate:attribution
 npm run lint:fix
 

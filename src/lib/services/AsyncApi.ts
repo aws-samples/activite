@@ -14,9 +14,9 @@
   limitations under the License.                                                                              *
  ******************************************************************************************************************** */
 import { DictUnit, GenericUnit, BoolUnit } from "@activejs/core";
-import { EMPTY, Observable } from "rxjs";
+import { EMPTY, Observable, of, throwError } from "rxjs";
 import { fromPromise } from "rxjs/internal-compatibility";
-import { catchError, filter, switchMap, tap } from "rxjs/operators";
+import { catchError, filter, map, switchMap, tap } from "rxjs/operators";
 import { merge } from "rxjs";
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 import BuildUrl from "build-url";
@@ -124,7 +124,7 @@ export class AsyncApi {
   public addEntity<D>(name: string): AddServiceReturn<D> {
 
     if (this.entities[name])
-      throw ('An entity with this name exists')
+      throw (`An entity with this name exists ${name}`)
 
     this.entities[name] = {
       query: new GenericUnit<Query>(),
@@ -140,7 +140,7 @@ export class AsyncApi {
   public removeEntity(name: string) {
     try {
       if (!this.entities[name])
-        throw ('Unknown service entity')
+        throw (`Unknown service entity - ${name}`)
 
       const { pending } = this.entities[name];
       /** check if there is something pending */
@@ -154,7 +154,7 @@ export class AsyncApi {
 
   public getEntity(name: string) {
     if (!this.entities[name]) {
-      throw ('Unknown service entity')
+      throw (`Unknown service entity - ${name}`)
     } else {
       return this.entities[name]
     }
@@ -190,19 +190,20 @@ export class AsyncApi {
           /** make the API call */
           this.getData(query).pipe(
             /** dispatch the results */
-            tap(returnData => data.dispatch(returnData.data)),
+            tap(returnData => {
+              data.dispatch(returnData.data)
+            }),
             /** handle any errors */
             catchError(err => {
               /** dispatch the error */
-              error.dispatch(err);
+              error.dispatch(err.response.data);
               /** don't let the parent pipe die */
               return EMPTY;
             })
           )
         )
         /** activate the stream */
-      )
-      .subscribe();
+      ).subscribe()
   }
 
   protected getData(
@@ -213,14 +214,12 @@ export class AsyncApi {
 
     /** construct the final URL */
     const url = BuildUrl(`${this.baseUrl}:${this.port}/${path}`)
+
     return fromPromise(
       this.axiosInstance({ ...query, url })
+    ).pipe(
+      map((res: any) => res),
+      catchError((err, caught) => throwError(err))
     )
-    /** make the ajax call */
-    // return ajaxGetJSON(url).pipe(switchMap(d => tap(d => console.log(d))))
-    // return https.get(url, (r: any) => console.log(r))
-    // return fromPromise(axios.get(url))
-    // .then((d) => console.log(d))
-    // .catch((e) => console.log(e)))
   }
 }

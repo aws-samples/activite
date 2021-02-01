@@ -19,11 +19,12 @@ import {
   Query,
   AsyncApiParams,
   GenericReturn,
+  QueryMethod
 } from './lib/services/AsyncApi'
 
 import { DynamoReturn } from './types'
 import { useUnit } from './lib/hooks/useUnit';
 
 
-export { AsyncApi, useUnit }
+export { AsyncApi, useUnit, QueryMethod }
 export type { Query, DynamoReturn, AsyncApiParams, GenericReturn }
